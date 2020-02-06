@@ -1,0 +1,18 @@
+import React, { PropsWithChildren } from "react";
+import styled from "styled-components";
+import Header from "./Header";
+
+const StyledMain = styled.main`
+  margin: ${props => props.theme.headerHeight} 0 0 0;
+`;
+
+const Layout = ({ children }: PropsWithChildren<{}>) => {
+  return (
+    <>
+      <Header />
+      <StyledMain>{children}</StyledMain>
+    </>
+  );
+};
+
+export default Layout;
