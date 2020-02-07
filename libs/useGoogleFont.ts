@@ -68,7 +68,6 @@ export const useGoogleFont = (fontFamily: string) => {
           // Remove from loadingFonts
           delete loadingFonts[fontFamily];
 
-          console.log("font loaded", fontFamily);
           setState({
             loaded: true,
             error: false

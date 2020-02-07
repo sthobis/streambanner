@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ThemeProvider, createGlobalStyle } from "styled-components";
 import { lightTheme, darkTheme } from "../config/theme";
 import Head from "next/head";
 import Layout from "../components/Layout";
-import { DarkModeContext } from "../libs/darkModeContext";
+import { DarkModeContext, DARK_MODE_COOKIE_KEY } from "../libs/darkModeContext";
+import { useLocalStorage } from "../libs/useLocalStorage";
 
 const GlobalStyle = createGlobalStyle<{ darkMode: boolean }>`
   body {
@@ -27,8 +28,18 @@ const GlobalStyle = createGlobalStyle<{ darkMode: boolean }>`
 const App = ({ Component, pageProps }) => {
   const [darkMode, setDarkMode] = useState<boolean>(false);
   const toggleDarkMode = () => {
+    window.localStorage.setItem(DARK_MODE_COOKIE_KEY, (!darkMode).toString());
     setDarkMode(prevValue => !prevValue);
   };
+
+  useEffect(() => {
+    if (window) {
+      const savedDarkMode = JSON.parse(
+        window.localStorage.getItem(DARK_MODE_COOKIE_KEY)
+      );
+      setDarkMode(savedDarkMode);
+    }
+  }, []);
 
   return (
     <DarkModeContext.Provider
