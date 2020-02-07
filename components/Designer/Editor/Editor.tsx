@@ -15,7 +15,7 @@ const Container = styled.div`
   width: ${props => props.theme.editorWidth};
   height: calc(100vh - ${props => props.theme.headerHeight});
   padding: 30px;
-  box-shadow: 0 0 0 1px #e4effa;
+  box-shadow: 0 0 0 1px ${props => props.theme.color.sectionBoxShadow};
 `;
 
 const Row = styled.div`

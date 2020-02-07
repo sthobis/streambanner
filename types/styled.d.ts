@@ -5,9 +5,13 @@ declare module "styled-components" {
     headerHeight: string;
     editorWidth: string;
     color: {
-      primary: string;
-      secondary: string;
+      text: string;
+      input: string;
+      inputActive: string;
+      inputBoxShadow: string;
       brand: string;
+      background: string;
+      sectionBoxShadow: string;
     };
   }
 }

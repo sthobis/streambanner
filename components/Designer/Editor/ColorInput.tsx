@@ -10,7 +10,7 @@ interface ColorButtonProps {
 
 const ColorButton = styled.button<ColorButtonProps>`
   border: none;
-  background: ${props => props.theme.color.secondary};
+  background: ${props => props.theme.color.input};
   border-radius: 4px;
   width: 55px;
   height: 43px;
@@ -27,8 +27,8 @@ const ColorButton = styled.button<ColorButtonProps>`
 
   &:focus {
     outline: none;
-    background-color: #ffffff;
-    box-shadow: 0 0 0 1px #e4effa;
+    background-color: ${props => props.theme.color.inputActive};
+    box-shadow: 0 0 0 1px ${props => props.theme.color.inputBoxShadow};
   }
 `;
 

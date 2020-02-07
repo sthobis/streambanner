@@ -137,7 +137,6 @@ const Canvas = ({
           onMouseOver={handleMouseOver}
           onMouseOut={handleMouseOut}
           align="center"
-          verticalAlign="middle"
         />
         {!fontLoaded && (
           <Text

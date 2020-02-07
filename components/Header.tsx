@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import Link from "next/link";
+import { DarkModeContext } from "../libs/darkModeContext";
+import Toggle from "./Toggle";
 
 const Container = styled.nav`
   position: fixed;
@@ -10,18 +12,17 @@ const Container = styled.nav`
   height: ${props => props.theme.headerHeight};
   display: flex;
   align-items: center;
-  background-color: #ffffff;
-  padding: 0 20px;
+  background-color: ${props => props.theme.color.background};
+  padding: 0 40px;
   z-index: 1000;
-  box-shadow: 0 0 0 1px #e4effa;
+  box-shadow: 0 0 0 1px ${props => props.theme.color.sectionBoxShadow};
 `;
 
 const Logo = styled.a`
   font-size: 20px;
   font-weight: 700;
-  padding: 5px 10px;
   text-decoration: none;
-  color: ${props => props.theme.color.primary};
+  color: ${props => props.theme.color.text};
   margin: 0 40px 0 0;
 `;
 
@@ -29,10 +30,16 @@ const NavLink = styled.a`
   font-size: 16px;
   font-weight: 600;
   text-decoration: none;
-  color: ${props => props.theme.color.primary};
+  color: ${props => props.theme.color.text};
+`;
+
+const StyledToggle = styled(Toggle)`
+  margin-left: auto;
 `;
 
 const Header = () => {
+  const { active, toggle } = useContext(DarkModeContext);
+
   return (
     <header>
       <Container>
@@ -42,6 +49,11 @@ const Header = () => {
         <Link href="/design" passHref>
           <NavLink>Create Banner</NavLink>
         </Link>
+        <StyledToggle
+          text="Twitch dark mode"
+          checked={active}
+          onChange={toggle}
+        />
       </Container>
     </header>
   );

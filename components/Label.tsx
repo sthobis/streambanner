@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const StyledLabel = styled.label`
   display: block;
-  color: ${props => props.theme.color.primary};
+  color: ${props => props.theme.color.text};
   font-size: 17px;
   font-weight: 600;
   margin: 0 0 5px 0;
