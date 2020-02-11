@@ -26,7 +26,7 @@ const GlobalStyle = createGlobalStyle<{ darkMode: boolean }>`
 `;
 
 const App = ({ Component, pageProps }) => {
-  const [darkMode, setDarkMode] = useState<boolean>(false);
+  const [darkMode, setDarkMode] = useState<boolean>(true);
   const toggleDarkMode = () => {
     window.localStorage.setItem(DARK_MODE_COOKIE_KEY, (!darkMode).toString());
     setDarkMode(prevValue => !prevValue);
@@ -37,7 +37,9 @@ const App = ({ Component, pageProps }) => {
       const savedDarkMode = JSON.parse(
         window.localStorage.getItem(DARK_MODE_COOKIE_KEY)
       );
-      setDarkMode(savedDarkMode);
+      if (savedDarkMode) {
+        setDarkMode(savedDarkMode);
+      }
     }
   }, []);
 
