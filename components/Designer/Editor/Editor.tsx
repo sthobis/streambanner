@@ -28,6 +28,10 @@ const Row = styled.div`
   & + & {
     margin-top: 20px;
   }
+
+  &:last-child {
+    margin-top: 30px;
+  }
 `;
 
 const Info = styled.p`
@@ -44,7 +48,6 @@ const ExportInfo = styled.p`
 const Table = styled.table`
   border-spacing: 0;
   font-size: 13px;
-  margin: 0 0 20px 0;
 `;
 
 interface EditorProps {
@@ -141,6 +144,7 @@ const Editor = ({
           </Row>
           <Row>
             <PresetInput preset={preset} changePreset={changePreset} />
+            <Info>More presets coming soon.</Info>
           </Row>
           <Row>
             <Button onClick={downloadAll}>Download All</Button>

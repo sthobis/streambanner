@@ -56,6 +56,10 @@ const Title = styled.h1`
 `;
 
 const StyledA = styled.a`
+  display: flex;
+  min-width: 200px;
+  justify-content: center;
+  align-items: center;
   border: none;
   border-radius: 4px;
   color: #ffffff;
@@ -71,12 +75,23 @@ const StyledA = styled.a`
   &:hover {
     outline: none;
     background-color: #8d4def;
+
+    img {
+      transform: translateX(13px);
+    }
+  }
+
+  img {
+    width: 18px;
+    margin: 2px 0 0 0;
+    transform: translateX(10px);
+    transition: 0.3s;
   }
 `;
 
 const Info = styled.p`
   font-size: 14px;
-  margin: 15px 0 0 5px;
+  margin: 25px 0 0 5px;
 
   a,
   a:visited {
@@ -96,7 +111,9 @@ const Home = () => (
       Great <span>banner</span>
     </Title>
     <Link href="/design" passHref>
-      <StyledA>Create Yours. For Free.</StyledA>
+      <StyledA>
+        Create yours <img src="/icon/arrow-forward.svg" alt="arrow right" />
+      </StyledA>
     </Link>
     <Info>
       All assets are free to use commercially without any attribution.

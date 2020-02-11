@@ -31,7 +31,7 @@ const ThemeInput = ({ preset, changePreset }: ThemeInputProps) => {
 
   return (
     <>
-      <Label>Font Family</Label>
+      <Label>Select Preset</Label>
       <StyledSelect onChange={handlePresetChange} value={preset}>
         {Object.keys(presets).map(key => {
           return (

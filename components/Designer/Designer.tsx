@@ -14,20 +14,39 @@ const Container = styled.div`
   align-items: stretch;
   width: calc(100% - ${props => props.theme.editorWidth});
   margin-right: ${props => props.theme.editorWidth};
+  padding: 0 0 0 50px;
 `;
+
 const List = styled.ul`
   margin: 0;
-  padding: 0;
+  padding: 15px;
   list-style-type: none;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
 
   & li {
-    &:last-child {
-      padding: 30px;
-    }
+    margin: 15px;
   }
+`;
+
+const ProfileBar = styled.div`
+  display: flex;
+  align-items: center;
+  height: 55px;
+  padding: 0 10px;
+`;
+
+const ProfilePicture = styled.div`
+  width: 36px;
+  height: 36px;
+  background-color: #fc6675;
+  border-radius: 50%;
+  background-image: url("/icon/person.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 28px;
+  margin: 0 15px 0 0;
 `;
 
 interface ToggleEditorAction {
@@ -334,6 +353,10 @@ const Designer = () => {
         editor={profileBannerEditor}
         preset={state.preset}
       />
+      <ProfileBar>
+        <ProfilePicture />
+        <span>StreamBannerTV</span>
+      </ProfileBar>
       <OfflineBanner
         data={state.data.offlineBanner}
         updateData={updateBannerData}
