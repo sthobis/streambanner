@@ -42,7 +42,7 @@ export default class MyDocument extends Document {
             name="description"
             content="Create personalized banner and panel for your stream using our easy-to-use editor."
           />
-          <meta property="og:title" content="Mozilla Developer Network" />
+          <meta property="og:title" content="StreamBanner" />
           <meta
             property="og:description"
             content="Create personalized banner and panel for your stream using our easy-to-use editor."
