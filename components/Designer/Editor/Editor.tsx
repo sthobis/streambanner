@@ -156,7 +156,7 @@ const Editor = ({
           </Row>
           <Row>
             <PresetInput preset={preset} changePreset={changePreset} />
-            <Info>More presets coming soon.</Info>
+            <Info>More presets & features coming soon.</Info>
           </Row>
           <Row>
             <Button onClick={downloadAll}>Download All</Button>
