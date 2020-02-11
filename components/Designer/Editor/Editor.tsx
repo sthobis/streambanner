@@ -34,6 +34,18 @@ const Info = styled.p`
   margin: 10px 0 0 0;
 `;
 
+const ExportInfo = styled.p`
+  font-size: 15px;
+  margin: 0 0 5px 0;
+  font-weight: 600;
+`;
+
+const Table = styled.table`
+  border-spacing: 0;
+  font-size: 13px;
+  margin: 0 0 20px 0;
+`;
+
 interface EditorProps {
   data: EditableFragmentData;
   updateData: (data: EditableFragmentData) => void;
@@ -102,7 +114,26 @@ const Editor = ({
         </>
       ) : (
         <>
-          <Row>Click on any banner on the left to edit.</Row>
+          <Row>Click on any banner on the left to start editing.</Row>
+          <Row>
+            <ExportInfo>Export Size Table</ExportInfo>
+            <Table>
+              <tbody>
+                <tr>
+                  <td>Profile Banner:</td>
+                  <td>1200x480</td>
+                </tr>
+                <tr>
+                  <td>Offline Banner:</td>
+                  <td>1920x1080</td>
+                </tr>
+                <tr>
+                  <td>Panel Banner:</td>
+                  <td>320x100</td>
+                </tr>
+              </tbody>
+            </Table>
+          </Row>
           <Row>
             <Button onClick={downloadAll}>Download All</Button>
             <Info>

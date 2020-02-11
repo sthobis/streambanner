@@ -203,7 +203,11 @@ const Canvas = ({
 
   return (
     <Container>
-      <DownloadButton aria-label="Download" onClick={downloadImage}>
+      <DownloadButton
+        aria-label="Download"
+        onClick={downloadImage}
+        title="Download"
+      >
         <img src="/icon/download.svg" alt="Download" />
       </DownloadButton>
       <StageWithCursor

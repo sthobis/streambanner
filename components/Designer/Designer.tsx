@@ -24,8 +24,6 @@ const List = styled.ul`
   flex-wrap: wrap;
 
   & li {
-    width: 300px;
-
     &:last-child {
       padding: 30px;
     }
