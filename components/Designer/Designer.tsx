@@ -6,7 +6,7 @@ import { EditableFragmentData } from "./Editable";
 import { OfflineBanner, PanelBanner, ProfileBanner } from "./Fragments";
 import Editor from "./Editor";
 import Button from "../Button";
-import preset from "../../config/preset";
+import preset from "../../config/presets";
 
 const Container = styled.div`
   display: flex;
@@ -62,6 +62,11 @@ interface RemoveActiveBannerAction {
   type: "REMOVE_ACTIVE_BANNER";
 }
 
+interface ChangePresetAction {
+  type: "CHANGE_PRESET";
+  preset: string;
+}
+
 interface DownloadAllAction {
   type: "DOWNLOAD_ALL";
 }
@@ -74,6 +79,7 @@ type ActionTypes =
   | CenterActiveBannerTextAction
   | AddNewPanelAction
   | RemoveActiveBannerAction
+  | ChangePresetAction
   | DownloadAllAction;
 
 export interface EditorInterface {
@@ -127,7 +133,7 @@ const initialState: DesignerState = {
         color: "black"
       },
       fontFamily: "Bangers",
-      fontSize: 100,
+      fontSize: 80,
       centerToggle: false,
       downloadToggle: false,
       removable: false,
@@ -147,7 +153,7 @@ const initialState: DesignerState = {
         color: "black"
       },
       fontFamily: "Bangers",
-      fontSize: 120,
+      fontSize: 100,
       centerToggle: false,
       downloadToggle: false,
       removable: false,
@@ -158,7 +164,7 @@ const initialState: DesignerState = {
     },
     panelBanners: [initialPanelData]
   },
-  preset: preset.preset3,
+  preset: preset.preset1,
   activeId: null
 };
 
@@ -228,6 +234,9 @@ function reducer(draft: DesignerState, action: ActionTypes): DesignerState {
       );
       draft.data.panelBanners.splice(index, 1);
       return draft;
+    case "CHANGE_PRESET":
+      draft.preset = action.preset;
+      return draft;
     case "DOWNLOAD_ALL":
       draft.data.profileBanner.downloadToggle = true;
       draft.data.offlineBanner.downloadToggle = true;
@@ -292,6 +301,13 @@ const Designer = () => {
     };
   };
 
+  const changePreset = (preset: string) => {
+    dispatch({
+      type: "CHANGE_PRESET",
+      preset
+    });
+  };
+
   const downloadAll = () => {
     dispatch({
       type: "DOWNLOAD_ALL"
@@ -347,6 +363,8 @@ const Designer = () => {
         updateData={updateActiveBannerData}
         centerText={centerActivePanelText}
         removeBanner={removeActiveBanner}
+        preset={state.preset}
+        changePreset={changePreset}
         downloadAll={downloadAll}
       />
     </Container>

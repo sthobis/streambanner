@@ -93,15 +93,13 @@ const Home = () => (
     <Title>
       Great <span>stream</span>
       <br /> deserves <br />
-      Great <span>banner</span>.
+      Great <span>banner</span>
     </Title>
     <Link href="/design" passHref>
       <StyledA>Create Yours. For Free.</StyledA>
     </Link>
     <Info>
-      All assets are provided by <a href="https://unsplash.com">Unpslash</a> and{" "}
-      <a href="https://pexels.com">Pexels</a> and are free to use commercially
-      without any attribution.
+      All assets are free to use commercially without any attribution.
     </Info>
   </Container>
 );

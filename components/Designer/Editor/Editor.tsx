@@ -7,6 +7,7 @@ import StrokeInput from "./StrokeInput";
 import FontSizeInput from "./FontSizeInput";
 import FontFamilyInput, { GoogleFontObject } from "./FontFamilyInput";
 import PositionInput from "./PositionInput";
+import PresetInput from "./PresetInput";
 import Button from "../../Button";
 
 const Container = styled.div`
@@ -51,6 +52,8 @@ interface EditorProps {
   updateData: (data: EditableFragmentData) => void;
   centerText: () => void;
   removeBanner: () => void;
+  preset: string;
+  changePreset: (preset: string) => void;
   downloadAll: () => void;
 }
 
@@ -59,6 +62,8 @@ const Editor = ({
   updateData,
   centerText,
   removeBanner,
+  preset,
+  changePreset,
   downloadAll
 }: EditorProps) => {
   const [availableFonts, setAvailableFonts] = useState<GoogleFontObject[]>([]);
@@ -133,6 +138,9 @@ const Editor = ({
                 </tr>
               </tbody>
             </Table>
+          </Row>
+          <Row>
+            <PresetInput preset={preset} changePreset={changePreset} />
           </Row>
           <Row>
             <Button onClick={downloadAll}>Download All</Button>
