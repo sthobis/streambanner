@@ -101,10 +101,6 @@ const Info = styled.p`
 
 const Home = () => (
   <Container>
-    <Head>
-      <title>Home</title>
-      <link rel="icon" href="/favicon.ico" />
-    </Head>
     <Title>
       Great <span>stream</span>
       <br /> deserves <br />
