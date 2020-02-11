@@ -9,6 +9,7 @@ import FontFamilyInput, { GoogleFontObject } from "./FontFamilyInput";
 import PositionInput from "./PositionInput";
 import PresetInput from "./PresetInput";
 import Button from "../../Button";
+import Label from "../../Label";
 
 const Container = styled.div`
   position: fixed;
@@ -18,6 +19,7 @@ const Container = styled.div`
   height: calc(100vh - ${props => props.theme.headerHeight});
   padding: 30px;
   box-shadow: 0 0 0 1px ${props => props.theme.color.sectionBoxShadow};
+  overflow: auto;
 `;
 
 const Row = styled.div`
@@ -37,6 +39,16 @@ const Row = styled.div`
 const Info = styled.p`
   font-size: 13px;
   margin: 10px 0 0 0;
+
+  a,
+  a:visited {
+    color: ${props => props.theme.color.text};
+  }
+
+  strong {
+    display: block;
+    margin: 0 0 5px 0;
+  }
 `;
 
 const ExportInfo = styled.p`
@@ -149,8 +161,24 @@ const Editor = ({
           <Row>
             <Button onClick={downloadAll}>Download All</Button>
             <Info>
-              Your browser will ask for permission to download multiple files
-              when you download. Press "Allow".
+              Your browser will sometimes ask for permission to download
+              multiple files when you download. Press "Allow".
+            </Info>
+          </Row>
+          <Row>
+            <Label>FAQ</Label>
+            <Info>
+              <strong>
+                Hey I have some questions about streambanner app, how can I
+                contact you?
+              </strong>
+              You can send me DM or tweet at me via{" "}
+              <a href="https://twitter.com/iBoht">@iBoht</a>
+            </Info>
+            <Info>
+              <strong>Great app, how I can support you?</strong>Thanks, I don't
+              really drink coffee, but I'd be grateful if you{" "}
+              <a href="https://ko-fi.com/sthobis">buy me some.</a>
             </Info>
           </Row>
         </>

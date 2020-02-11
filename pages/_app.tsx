@@ -4,7 +4,6 @@ import { lightTheme, darkTheme } from "../config/theme";
 import Head from "next/head";
 import Layout from "../components/Layout";
 import { DarkModeContext, DARK_MODE_COOKIE_KEY } from "../libs/darkModeContext";
-import { useLocalStorage } from "../libs/useLocalStorage";
 
 const GlobalStyle = createGlobalStyle<{ darkMode: boolean }>`
   body {
