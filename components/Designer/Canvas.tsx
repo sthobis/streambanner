@@ -74,7 +74,7 @@ const Canvas = ({
   preset,
   parentRef
 }: CanvasProps) => {
-  const [image] = useImage(preset);
+  const [image, imageStatus] = useImage(preset);
   const [cursor, setCursor] = useState<CursorTypes>("pointer");
 
   const [isHover, setIsHover] = useState(false);
@@ -245,21 +245,47 @@ const Canvas = ({
             onMouseOut={handleMouseOut}
             align="center"
           />
+          {imageStatus === "loading" && (
+            <Text
+              x={5}
+              y={(canvasRect.height || 35) - 40}
+              fontSize={40}
+              fill={"black"}
+              stroke="white"
+              strokeWidth={1}
+              text={`Loading preset image...`}
+            />
+          )}
+          {imageStatus === "failed" && (
+            <Text
+              x={5}
+              y={(canvasRect.height || 35) - 40}
+              fontSize={40}
+              fill={"black"}
+              stroke="white"
+              strokeWidth={1}
+              text={`Failed to load preset image...`}
+            />
+          )}
           {!fontLoaded && (
             <Text
               x={5}
-              y={(canvasRect.height || 35) - 30}
+              y={(canvasRect.height || 35) - 40}
               fontSize={30}
               fill={"black"}
+              stroke="white"
+              strokeWidth={1}
               text={`Loading font ${data.fontFamily}...`}
             />
           )}
           {fontError && (
             <Text
               x={5}
-              y={(canvasRect.height || 35) - 30}
+              y={(canvasRect.height || 35) - 40}
               fontSize={30}
               fill={"black"}
+              stroke="white"
+              strokeWidth={1}
               text={`Failed to load font ${data.fontFamily}...`}
             />
           )}

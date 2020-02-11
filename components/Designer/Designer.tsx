@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useImmerReducer } from "use-immer";
 import uuidv1 from "uuid/v1";
 import styled from "styled-components";
@@ -6,28 +6,15 @@ import { EditableFragmentData } from "./Editable";
 import { OfflineBanner, PanelBanner, ProfileBanner } from "./Fragments";
 import Editor from "./Editor";
 import Button from "../Button";
-import presets from "../../config/presets";
+import preset from "../../config/presets";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: stretch;
   width: calc(100% - ${props => props.theme.editorWidth});
-  min-height: calc(100vh - ${props => props.theme.headerHeight});
   margin-right: ${props => props.theme.editorWidth};
   padding: 0 0 0 50px;
-  position: relative;
-`;
-
-const LoadingOverlay = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
 `;
 
 const List = styled.ul`
@@ -196,7 +183,7 @@ const initialState: DesignerState = {
     },
     panelBanners: [initialPanelData]
   },
-  preset: presets.preset1,
+  preset: preset.preset1,
   activeId: null
 };
 
@@ -358,71 +345,42 @@ const Designer = () => {
     state.activeId
   );
 
-  const [imagePreloaded, setImagePreloaded] = useState(0);
-  useEffect(() => {
-    const preloadImages = (srcs: string[]) => {
-      let imgs: HTMLImageElement[] = [];
-      const removeFinished = () => {
-        setImagePreloaded(prevValue => prevValue + 1);
-      };
-
-      for (let i = 0; i < srcs.length; i++) {
-        let img = new Image();
-        img.onload = removeFinished;
-        img.onerror = removeFinished;
-        img.src = srcs[i];
-        imgs.push(img);
-      }
-    };
-    preloadImages(Object.values(presets));
-  }, []);
-
   return (
     <Container>
-      {imagePreloaded !== Object.values(presets).length ? (
-        <LoadingOverlay>
-          Loading assets{" "}
-          {Math.floor((imagePreloaded / Object.values(presets).length) * 100)}
-          %..
-        </LoadingOverlay>
-      ) : (
-        <>
-          <ProfileBanner
-            data={state.data.profileBanner}
-            updateData={updateBannerData}
-            editor={profileBannerEditor}
-            preset={state.preset}
-          />
-          <ProfileBar>
-            <ProfilePicture />
-            <span>StreamBannerTV</span>
-          </ProfileBar>
-          <OfflineBanner
-            data={state.data.offlineBanner}
-            updateData={updateBannerData}
-            editor={offlineBannerEditor}
-            preset={state.preset}
-          />
-          <List>
-            {state.data.panelBanners.map(panel => {
-              const panelBannerEditor = createEditorInterface(panel.id);
-              return (
-                <li key={panel.id}>
-                  <PanelBanner
-                    data={panel}
-                    updateData={updateBannerData}
-                    editor={panelBannerEditor}
-                    preset={state.preset}
-                  />
-                </li>
-              );
-            })}
-            <li>
-              <Button onClick={addNewPanel}>Add New Panel</Button>
+      <ProfileBanner
+        data={state.data.profileBanner}
+        updateData={updateBannerData}
+        editor={profileBannerEditor}
+        preset={state.preset}
+      />
+      <ProfileBar>
+        <ProfilePicture />
+        <span>StreamBannerTV</span>
+      </ProfileBar>
+      <OfflineBanner
+        data={state.data.offlineBanner}
+        updateData={updateBannerData}
+        editor={offlineBannerEditor}
+        preset={state.preset}
+      />
+      <List>
+        {state.data.panelBanners.map(panel => {
+          const panelBannerEditor = createEditorInterface(panel.id);
+          return (
+            <li key={panel.id}>
+              <PanelBanner
+                data={panel}
+                updateData={updateBannerData}
+                editor={panelBannerEditor}
+                preset={state.preset}
+              />
             </li>
-          </List>
-        </>
-      )}
+          );
+        })}
+        <li>
+          <Button onClick={addNewPanel}>Add New Panel</Button>
+        </li>
+      </List>
       <Editor
         data={activeFragmentData}
         updateData={updateActiveBannerData}
