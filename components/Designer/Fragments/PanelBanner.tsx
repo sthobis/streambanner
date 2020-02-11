@@ -4,7 +4,7 @@ import Editable, { EditableFragmentData } from "../Editable";
 import { EditorInterface } from "../Designer";
 
 const EditablePanelBanner = styled(Editable)`
-  width: 300px;
+  width: 320px;
   height: 100px;
 `;
 

@@ -9,7 +9,7 @@ const Container = styled.div`
   &::before {
     content: "";
     display: block;
-    padding-bottom: 31.67%;
+    padding-bottom: 40%;
   }
 `;
 

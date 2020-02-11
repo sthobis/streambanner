@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { EditableFragmentData } from "../Editable";
 import TextInput from "./TextInput";
 import ColorInput from "./ColorInput";
+import StrokeInput from "./StrokeInput";
 import FontSizeInput from "./FontSizeInput";
 import FontFamilyInput, { GoogleFontObject } from "./FontFamilyInput";
 import PositionInput from "./PositionInput";
@@ -28,18 +29,25 @@ const Row = styled.div`
   }
 `;
 
+const Info = styled.p`
+  font-size: 13px;
+  margin: 10px 0 0 0;
+`;
+
 interface EditorProps {
   data: EditableFragmentData;
   updateData: (data: EditableFragmentData) => void;
   centerText: () => void;
   removeBanner: () => void;
+  downloadAll: () => void;
 }
 
 const Editor = ({
   data,
   updateData,
   centerText,
-  removeBanner
+  removeBanner,
+  downloadAll
 }: EditorProps) => {
   const [availableFonts, setAvailableFonts] = useState<GoogleFontObject[]>([]);
 
@@ -67,6 +75,9 @@ const Editor = ({
             <ColorInput data={data} updateData={updateData} />
           </Row>
           <Row>
+            <StrokeInput data={data} updateData={updateData} />
+          </Row>
+          <Row>
             <FontSizeInput data={data} updateData={updateData} />
           </Row>
           <Row>
@@ -90,7 +101,16 @@ const Editor = ({
           )}
         </>
       ) : (
-        "No active element"
+        <>
+          <Row>Click on any banner on the left to edit.</Row>
+          <Row>
+            <Button onClick={downloadAll}>Download All</Button>
+            <Info>
+              Your browser will ask for permission to download multiple files
+              when you download. Press "Allow".
+            </Info>
+          </Row>
+        </>
       )}
     </Container>
   );

@@ -3,10 +3,16 @@ import styled from "styled-components";
 import { ChromePicker, ColorResult } from "react-color";
 import { EditableFragmentData } from "../Editable";
 import Label from "../../Label";
+import Toggle from "../../Toggle";
 
 interface ColorButtonProps {
   fill: string;
 }
+
+const Row = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
 const ColorButton = styled.button<ColorButtonProps>`
   border: none;
@@ -32,13 +38,23 @@ const ColorButton = styled.button<ColorButtonProps>`
   }
 `;
 
-interface ColorInputProps {
+interface StrokeInputProps {
   data: EditableFragmentData;
   updateData: (data: EditableFragmentData) => void;
 }
 
-const ColorInput = ({ data, updateData }: ColorInputProps) => {
+const StrokeInput = ({ data, updateData }: StrokeInputProps) => {
   const [showColorPicker, setShowColorPicker] = useState(false);
+
+  const handleStrokeToggle = () => {
+    updateData({
+      ...data,
+      stroke: {
+        ...data.stroke,
+        enabled: !data.stroke.enabled
+      }
+    });
+  };
 
   const handleColorButtonClick = () => {
     setShowColorPicker(prevState => !prevState);
@@ -47,29 +63,37 @@ const ColorInput = ({ data, updateData }: ColorInputProps) => {
   const handleColorChange = (color: ColorResult) => {
     updateData({
       ...data,
-      fill: color.hex
+      stroke: {
+        ...data.stroke,
+        color: color.hex
+      }
     });
   };
 
   return (
     <>
-      <Label>Font Color</Label>
-      <ColorButton
-        aria-label="Change color"
-        fill={data.fill}
-        onClick={handleColorButtonClick}
-      >
-        <span />
-      </ColorButton>
-      {showColorPicker && (
-        <ChromePicker
-          disableAlpha={true}
-          color={data.fill}
-          onChange={handleColorChange}
+      <Label>Stroke Color</Label>
+      <Row>
+        <Toggle
+          text=""
+          checked={data.stroke.enabled}
+          onChange={handleStrokeToggle}
         />
+        {data.stroke.enabled && (
+          <ColorButton
+            aria-label="Change stroke color"
+            fill={data.stroke.color}
+            onClick={handleColorButtonClick}
+          >
+            <span />
+          </ColorButton>
+        )}
+      </Row>
+      {showColorPicker && (
+        <ChromePicker color={data.stroke.color} onChange={handleColorChange} />
       )}
     </>
   );
 };
 
-export default ColorInput;
+export default StrokeInput;

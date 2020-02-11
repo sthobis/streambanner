@@ -1,4 +1,10 @@
-import Document, { DocumentContext } from "next/document";
+import Document, {
+  DocumentContext,
+  Main,
+  Html,
+  NextScript,
+  Head
+} from "next/document";
 import { ServerStyleSheet } from "styled-components";
 
 export default class MyDocument extends Document {
@@ -25,5 +31,33 @@ export default class MyDocument extends Document {
     } finally {
       sheet.seal();
     }
+  }
+
+  render() {
+    return (
+      <Html lang="en">
+        <Head>
+          <meta charSet="utf-8" />
+          <meta
+            name="description"
+            content="Create personalized banner and panel for your stream using our easy-to-use editor."
+          />
+          <meta property="og:title" content="Mozilla Developer Network" />
+          <meta
+            property="og:description"
+            content="Create personalized banner and panel for your stream using our easy-to-use editor."
+          />
+          <meta
+            property="og:image"
+            content="https://streambanner.now.sh/ogimage.png"
+          />
+          {this.props.styles}
+        </Head>
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    );
   }
 }

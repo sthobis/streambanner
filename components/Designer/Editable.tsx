@@ -11,8 +11,17 @@ export interface EditableFragmentData {
   fontFamily: string;
   fontSize: number;
   fill: string;
-  position: "center" | "manual";
+  stroke: {
+    enabled: boolean;
+    color: string;
+  };
+  centerToggle: boolean;
+  downloadToggle: boolean;
   removable: boolean;
+  originalSize: {
+    width: number;
+    height: number;
+  };
 }
 
 interface EditableProps {

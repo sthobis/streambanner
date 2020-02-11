@@ -60,8 +60,12 @@ interface AddNewPanelAction {
   type: "ADD_NEW_PANEL";
 }
 
-interface removeActiveBannerAction {
+interface RemoveActiveBannerAction {
   type: "REMOVE_ACTIVE_BANNER";
+}
+
+interface DownloadAllAction {
+  type: "DOWNLOAD_ALL";
 }
 
 type ActionTypes =
@@ -71,7 +75,8 @@ type ActionTypes =
   | UpdateActiveBannerAction
   | CenterActiveBannerTextAction
   | AddNewPanelAction
-  | removeActiveBannerAction;
+  | RemoveActiveBannerAction
+  | DownloadAllAction;
 
 export interface EditorInterface {
   toggle: () => void;
@@ -96,10 +101,19 @@ const initialPanelData: EditableFragmentData = {
   y: 0,
   text: "About Me",
   fill: "white",
+  stroke: {
+    enabled: false,
+    color: "black"
+  },
   fontFamily: "Bangers",
   fontSize: 40,
-  position: "manual",
-  removable: true
+  centerToggle: false,
+  downloadToggle: false,
+  removable: true,
+  originalSize: {
+    width: 320,
+    height: 100
+  }
 };
 
 const initialState: DesignerState = {
@@ -108,23 +122,41 @@ const initialState: DesignerState = {
       id: uuidv1(),
       x: 0,
       y: 0,
-      text: "Welcome to My Channel",
+      text: "Welcome to StreamBanner",
       fill: "white",
+      stroke: {
+        enabled: false,
+        color: "black"
+      },
       fontFamily: "Bangers",
       fontSize: 100,
-      position: "manual",
-      removable: false
+      centerToggle: false,
+      downloadToggle: false,
+      removable: false,
+      originalSize: {
+        width: 1200,
+        height: 480
+      }
     },
     offlineBanner: {
       id: uuidv1(),
       x: 0,
       y: 0,
-      text: "Streamer is offline.",
+      text: "StreamBanner is offline.",
       fill: "white",
+      stroke: {
+        enabled: false,
+        color: "black"
+      },
       fontFamily: "Bangers",
       fontSize: 120,
-      position: "manual",
-      removable: false
+      centerToggle: false,
+      downloadToggle: false,
+      removable: false,
+      originalSize: {
+        width: 1920,
+        height: 1080
+      }
     },
     panelBanners: [initialPanelData]
   },
@@ -169,19 +201,19 @@ function reducer(draft: DesignerState, action: ActionTypes): DesignerState {
       let activeBanner = getById(draft.data, draft.activeId);
       activeBanner = {
         ...activeBanner,
-        position: "center"
+        centerToggle: false
       };
     case "UPDATE_BANNER":
       setById(draft.data, action.data.id, {
         ...action.data,
-        position: "manual"
+        centerToggle: false
       });
       return draft;
     case "CENTER_ACTIVE_BANNER_TEXT":
       let item = getById(draft.data, draft.activeId);
       setById(draft.data, draft.activeId, {
         ...item,
-        position: "center"
+        centerToggle: true
       });
       return draft;
     case "ADD_NEW_PANEL":
@@ -197,6 +229,13 @@ function reducer(draft: DesignerState, action: ActionTypes): DesignerState {
         item => item.id === draft.activeId
       );
       draft.data.panelBanners.splice(index, 1);
+      return draft;
+    case "DOWNLOAD_ALL":
+      draft.data.profileBanner.downloadToggle = true;
+      draft.data.offlineBanner.downloadToggle = true;
+      draft.data.panelBanners.forEach(panel => {
+        panel.downloadToggle = true;
+      });
       return draft;
     default:
       throw new Error(`Undefined action ${action}`);
@@ -255,6 +294,12 @@ const Designer = () => {
     };
   };
 
+  const downloadAll = () => {
+    dispatch({
+      type: "DOWNLOAD_ALL"
+    });
+  };
+
   const profileBannerEditor = createEditorInterface(
     state.data.profileBanner.id
   );
@@ -285,13 +330,14 @@ const Designer = () => {
         {state.data.panelBanners.map(panel => {
           const panelBannerEditor = createEditorInterface(panel.id);
           return (
-            <PanelBanner
-              key={panel.id}
-              data={panel}
-              updateData={updateBannerData}
-              editor={panelBannerEditor}
-              preset={state.preset}
-            />
+            <li key={panel.id}>
+              <PanelBanner
+                data={panel}
+                updateData={updateBannerData}
+                editor={panelBannerEditor}
+                preset={state.preset}
+              />
+            </li>
           );
         })}
         <li>
@@ -303,6 +349,7 @@ const Designer = () => {
         updateData={updateActiveBannerData}
         centerText={centerActivePanelText}
         removeBanner={removeActiveBanner}
+        downloadAll={downloadAll}
       />
     </Container>
   );
