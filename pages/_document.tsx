@@ -41,13 +41,11 @@ export default class MyDocument extends Document {
             async
             src="https://www.googletagmanager.com/gtag/js?id=UA-107058891-3"
           ></script>
-          <script>
-            {`window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-
-          gtag('config', 'UA-107058891-3');`}
-          </script>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'UA-107058891-3');`
+            }}
+          />
 
           <link rel="icon" type="image/png" href="/favicon.png" />
           <meta charSet="utf-8" />
